@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "884664782421",
+    "project_id": "meow-movies",
+    "storage_bucket": "meow-movies.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884664782421:android:60e46d8dc7989395cc0edc",
+        "android_client_info": {
+          "package_name": "com.example.meow_films"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884664782421-37o3gn30khrj3hcvimroa3dba5afttak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSUXubzePY5DIJgorVwz3k6Uzgz0zLck0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884664782421-37o3gn30khrj3hcvimroa3dba5afttak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
