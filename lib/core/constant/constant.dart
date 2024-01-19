@@ -23,4 +23,6 @@ class Constant {
   static const alertOk = 'Ok';
   static const logOut = 'LOGOUT';
   static const logingError = 'Enter Required Field';
+  static const meowFilms = 'Meow FIlms';
+  static const googleButton = 'GOOGLE';
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meow_films/core/constant/constant.dart';
-import 'package:meow_films/features/Data/Data%20Source/auth.dart';
 
 class MyLogOutButton extends StatelessWidget {
   // const MyLogOutButton({super.key});
@@ -9,7 +8,7 @@ class MyLogOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () async {
-          await AuthService.logout(context);
+          // await FirebaseAuthSource.logout(context);
         },
         child: const Text(Constant.logOut));
   }

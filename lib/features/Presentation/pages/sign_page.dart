@@ -1,32 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:meow_films/core/constant/constant.dart';
-import 'package:meow_films/features/Data/Data%20Source/auth.dart';
 
 import 'package:meow_films/features/Presentation/Widgets/SignButton_Button_widget.dart';
-
+import 'package:meow_films/features/Presentation/Widgets/google_sign_widget.dart';
 import 'package:meow_films/features/Presentation/Widgets/textFeild_widget.dart';
 
-class Mysignup extends StatefulWidget {
+class Mysignup extends HookConsumerWidget {
   Mysignup({super.key});
-  static final TextEditingController emailController = TextEditingController();
-  static final TextEditingController passwordController =
-      TextEditingController();
-  static final TextEditingController nameController = TextEditingController();
+  static const routepath = '/signup';
+  // static final TextEditingController emailController = TextEditingController();
+  // static final TextEditingController passwordController =
+  //     TextEditingController();
+  // static final TextEditingController nameController = TextEditingController();
 
-  @override
-  State<Mysignup> createState() => _MysignupState();
-}
-
-class _MysignupState extends State<Mysignup> {
   // final User? user = Auth().currentUser;
-
   final CollectionReference doner =
       FirebaseFirestore.instance.collection('Meow Movies User');
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final nameController = useTextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -68,7 +68,7 @@ class _MysignupState extends State<Mysignup> {
                   width: 300,
                   // color: const Color.fromARGB(255, 16, 136, 235),
                   child: UiHelper.customTextField(
-                      Mysignup.nameController,
+                      nameController,
                       Constant.nametextfieldLabel,
                       Constant.nametextfieldhint,
                       Icons.person_off_outlined,
@@ -80,7 +80,10 @@ class _MysignupState extends State<Mysignup> {
                   width: 300,
                   // color: const Color.fromARGB(255, 16, 136, 235),
                   child: UiHelper.customTextField(
-                      Mysignup.emailController,
+                      // ref
+                      //     .watch(authenticationProvider(context).notifier)
+                      //     .emailController,
+                      emailController,
                       Constant.emailLabel,
                       Constant.emailhint,
                       Icons.mail,
@@ -92,9 +95,12 @@ class _MysignupState extends State<Mysignup> {
                   width: 300,
                   // color: const Color.fromARGB(255, 16, 136, 235),
                   child: UiHelper.customTextField(
-                      Mysignup.passwordController,
+                      // ref
+                      //     .watch(authenticationProvider(context).notifier)
+                      //     .passwordController,
+                      passwordController,
                       Constant.passwordlabel,
-                      Constant.emailhint,
+                      Constant.passwordhint,
                       Icons.password,
                       true)),
             ),
@@ -106,7 +112,16 @@ class _MysignupState extends State<Mysignup> {
                   left: 50,
                   top: 30,
                 ),
-                child: signButton(Constant.signup)),
+                child: GoogleButton(buttonName: Constant.googleButton)),
+            Padding(
+                padding: const EdgeInsets.only(
+                  left: 50,
+                  top: 30,
+                ),
+                child: SignButton(
+                    buttonName: Constant.signup,
+                    emailController: emailController,
+                    passwordController: passwordController)),
             const SizedBox(
               height: 10,
             ),

@@ -1,12 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:meow_films/features/domain/repository/auth_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meow_films/core/Exception/Auth/invalid_exception.dart';
+import 'package:meow_films/core/Exception/Auth/signin_exception.dart';
 
-class Login {
-  final AuthorizationRepository _authRepository;
+import 'package:meow_films/features/domain/Repository/auth_repository.dart';
 
-  Login(this._authRepository);
-
-  Future<void> execute(String email, String password, BuildContext context) {
-    return _authRepository.login(email, password, context);
+final class SigninUsecase {
+  final AuthRepository repository;
+  SigninUsecase({required this.repository});
+  Future<void> call(String email, String password) async {
+    if (email.trim().isEmpty || password.trim().isEmpty) {
+      throw InvalidCredentialsException();
+    }
+    try {
+      await repository.signInWithEmail(email, password);
+    } on FirebaseAuthException catch (e) {
+      throw SigninException(e.message ?? "Sign up failed please retry", e.code);
+    }
   }
 }

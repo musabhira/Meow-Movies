@@ -1,31 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:meow_films/features/Data/Data%20Source/auth.dart';
-import 'package:meow_films/features/Presentation/pages/sign_page.dart';
 
-signButton(
-  String buttonName,
-) {
-  return SizedBox(
-    width: 230,
-    height: 35,
-    child: ElevatedButton(
-      onPressed: () {
-        onPressedSignUp(BuildContext context) {
-          AuthService.signUp(
-            context,
-            Mysignup.emailController.text.toString(),
-            Mysignup.passwordController.text.toString(),
-          );
-        }
-      },
-      style: ElevatedButton.styleFrom(
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:meow_films/features/Presentation/Providers/auth2_provider.dart';
+
+class SignButton extends HookConsumerWidget {
+  final String buttonName;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  const SignButton(
+      {Key? key,
+      required this.buttonName,
+      required this.emailController,
+      required this.passwordController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final email =
+    //     ref.read(authenticationProvider(context).notifier).emailController;
+    // final password =
+    //     ref.read(authenticationProvider(context).notifier).passwordController;
+    // static   final emailController = useTextEditingController();
+
+    return SizedBox(
+      width: 230,
+      height: 35,
+      child: ElevatedButton(
+        onPressed: () {
+          // if (FirebaseAuth.instance.currentUser != null) {
+          //   ref.read(authenticationProvider(context).notifier).signUpWithEmail(
+          //         email.text,
+          //         password.text,
+          //       );
+          // }
+          ref
+              .read(authenticationProvider(context).notifier)
+              .signUpWithEmail(emailController.text, passwordController.text);
+          // context.go(MyHome);
+        },
+        style: ElevatedButton.styleFrom(
           foregroundColor: const Color.fromARGB(255, 255, 255, 255),
           backgroundColor: const Color.fromARGB(255, 16, 1, 214),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-      child: Text(
-        buttonName,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        child: Text(buttonName),
       ),
-    ),
-  );
+    );
+  }
 }

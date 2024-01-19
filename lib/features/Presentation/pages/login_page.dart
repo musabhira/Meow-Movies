@@ -5,6 +5,7 @@ import 'package:meow_films/features/Presentation/pages/sign_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+  static const routepath = '/loginface';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

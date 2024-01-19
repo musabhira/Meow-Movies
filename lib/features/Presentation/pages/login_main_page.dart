@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:meow_films/core/constant/constant.dart';
-import 'package:meow_films/features/Data/Data%20Source/auth.dart';
+import 'package:meow_films/features/Presentation/Providers/auth2_provider.dart';
 
 import 'package:meow_films/features/Presentation/Widgets/textFeild_widget.dart';
+import 'package:meow_films/features/Presentation/pages/home_page.dart';
 
-class MyLoggingPage extends StatefulWidget {
-  MyLoggingPage({super.key});
+class MyLoggingPage extends HookConsumerWidget {
+  // final AuthController? authController;
+  MyLoggingPage({
+    super.key,
+  });
+  static const routepath = '/login';
+  // static final TextEditingController emailController = TextEditingController();
+  // static final TextEditingController passwordController =
+  //     TextEditingController();
+  //     final emailController = useTextEditingController();
+  // final passwordController = useTextEditingController();
 
   @override
-  State<MyLoggingPage> createState() => _MyLoggingPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
-class _MyLoggingPageState extends State<MyLoggingPage> {
-  static final TextEditingController emailController = TextEditingController();
-  static final TextEditingController passwordController =
-      TextEditingController();
+    // final email =
+    //     ref.read(authenticationProvider(context).notifier).emailController;
+    // final password =
+    //     ref.read(authenticationProvider(context).notifier).passwordController;
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -59,6 +73,9 @@ class _MyLoggingPageState extends State<MyLoggingPage> {
                   width: 300,
                   // color: const Color.fromARGB(255, 16, 136, 235),
                   child: UiHelper.customTextField(
+                      // ref
+                      //     .read(authenticationProvider(context).notifier)
+                      //     .emailController,
                       emailController,
                       Constant.emailLabel,
                       Constant.emailhint,
@@ -71,6 +88,9 @@ class _MyLoggingPageState extends State<MyLoggingPage> {
                   width: 300,
                   // color: const Color.fromARGB(255, 16, 136, 235),
                   child: UiHelper.customTextField(
+                      // ref
+                      //     .read(authenticationProvider(context).notifier)
+                      //     .passwordController,
                       passwordController,
                       Constant.passwordlabel,
                       Constant.emailhint,
@@ -91,12 +111,20 @@ class _MyLoggingPageState extends State<MyLoggingPage> {
                   height: 35,
                   child: ElevatedButton(
                     onPressed: () {
-                      AuthService.login(
-                          context,
-                          emailController.text.toString(),
-                          passwordController.text.toString());
-                      // login(emailController.text.toString(),
-                      //     passwordController.text.toString());
+                      // if (FirebaseAuth.instance.currentUser != null) {
+                      //   ref
+                      //       .read(authenticationProvider(context).notifier)
+                      //       .signUpWithEmail(
+                      //         emailController.text,
+                      //         passwordController.text,
+                      //       );
+                      //   // context.go(MyMainHome.routePath);
+                      // }
+                      ref
+                          .read(authenticationProvider(context).notifier)
+                          .signInWithEmail(
+                              emailController.text, passwordController.text);
+                      // context.go(MyMainHome.routePath);
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: const Color.fromARGB(255, 255, 255, 255),
