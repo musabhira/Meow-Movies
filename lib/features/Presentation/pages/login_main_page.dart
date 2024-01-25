@@ -24,6 +24,7 @@ class MyLoggingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final TextEditingController controller;
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
@@ -144,9 +145,13 @@ class MyLoggingPage extends HookConsumerWidget {
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 50, top: 10),
+              padding: EdgeInsets.only(left: 50, top: 10),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  ref
+                      .read(authenticationProvider(context).notifier)
+                      .sendPasswordResetEmail(emailController.text);
+                },
                 child: const Text(
                   Constant.forgot,
                   style: TextStyle(

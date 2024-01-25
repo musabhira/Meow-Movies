@@ -5,6 +5,7 @@ part 'movie_entity.freezed.dart';
 @freezed
 class MovieEntity with _$MovieEntity {
   const factory MovieEntity({
+    required bool video,
     required String originalTitle,
     required String overview,
     required String posterPath,

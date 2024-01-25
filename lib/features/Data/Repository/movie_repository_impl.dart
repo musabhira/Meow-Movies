@@ -21,7 +21,26 @@ class MovieRepositoryImpl implements MovieRepository {
             overview: results.overview,
             posterPath: results.posterPath,
             title: results.title,
-            voteAverage: results.voteAverage)
+            voteAverage: results.voteAverage,
+            video: results.video)
+    ];
+    return result;
+  }
+
+  @override
+  Future<List<MovieEntity>> fetchTrendingMovies() async {
+    final moon = await dataSource.fetchTrendingMovies();
+
+    late List<MovieEntity> result;
+    result = [
+      for (final results in moon.results)
+        MovieEntity(
+            originalTitle: results.originalTitle,
+            overview: results.overview,
+            posterPath: results.posterPath,
+            title: results.title,
+            voteAverage: results.voteAverage,
+            video: results.video)
     ];
     return result;
   }

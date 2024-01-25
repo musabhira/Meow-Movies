@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meow_films/core/constant/constant.dart';
 
-import 'package:meow_films/features/Data/Models/api_model.dart';
-
 import 'package:meow_films/features/Presentation/Providers/auth2_provider.dart';
 import 'package:meow_films/features/Presentation/Providers/movie_api_provider.dart';
+import 'package:meow_films/features/Presentation/Widgets/try_again_buttom_widget.dart';
 import 'package:meow_films/features/Presentation/pages/inHome_page.dart';
 
 import 'package:meow_films/features/Presentation/pages/login_page.dart';
@@ -20,21 +20,21 @@ class MyMainHome extends ConsumerWidget {
   const MyMainHome({
     super.key,
   });
-  static const routePath = '/';
+  static const routePath = '/MainHome';
   static const String path = "lib/src/pages/misc/sliders.dart";
   // final imagePath = 'https://image.tmdb.org/t/p/original';
   // 'https://image.tmdb.org/t/p/original';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 32, 31, 31),
+      backgroundColor: Color.fromARGB(255, 158, 157, 157),
       appBar: AppBar(
         title: const Text(
           Constant.meowFilms,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 88, 90, 94),
+        backgroundColor: Color.fromARGB(255, 12, 1, 31),
         elevation: 0,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -63,34 +63,52 @@ class MyMainHome extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(1),
                     child: Container(
                       width: double.infinity,
-                      height: 300,
-                      color: const Color.fromARGB(255, 42, 47, 51),
-                      child: ListView.builder(
-                        itemCount: value!.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
+                      height: 400,
+                      color: const Color.fromARGB(255, 199, 203, 204),
+                      child: CarouselSlider.builder(
+                        itemCount: value.trending.length,
+                        options: CarouselOptions(
+                          // height: 400,
+                          // autoPlay: true,
+                          // autoPlayInterval: Duration(seconds: 4),
+                          // autoPlayAnimationDuration:
+                          //     Duration(milliseconds: 800),
+                          // enableInfiniteScroll: true,
+                          height: 500,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.7,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 4),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 2000),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          enlargeFactor: 0.3,
+                          // onPageChanged: callbackFunction,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                        itemBuilder: (context, index, realIndex) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(20),
                               child: InkWell(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //         MyHerp(modelData1: modelData1, modelData: modelData)));
+                                  context.push(MyHerp.routePath,
+                                      extra: value.trending[index]);
                                 },
                                 child: Container(
                                   height: 100,
-                                  color: Colors.grey.shade800,
+                                  color: const Color.fromARGB(255, 12, 1, 31),
                                   padding: const EdgeInsets.all(16.0),
                                   child: Column(
                                     children: [
                                       Expanded(
                                         child: Image.network(
-                                          '$imagePath${value[index].posterPath}',
+                                          '$imagePath${value.trending[index].posterPath}',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -98,7 +116,7 @@ class MyMainHome extends ConsumerWidget {
                                         width: 150,
                                         child: Center(
                                           child: Text(
-                                            value[index].title,
+                                            value.trending[index].title,
                                             style: const TextStyle(
                                                 color: Colors.white),
                                           ),
@@ -121,60 +139,64 @@ class MyMainHome extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       width: double.infinity,
-                      height: 400,
-                      color: const Color.fromARGB(255, 17, 6, 6),
-                      child: ListView.builder(
-                        itemCount: value.length,
-                        shrinkWrap: true,
-                        // scrollDirection: Axis.horizontal,
+                      height: 700,
+                      color: const Color.fromARGB(255, 199, 203, 204),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4, // Number of columns
+                          crossAxisSpacing: 0.0, // Spacing between columns
+                          mainAxisSpacing: 0.0, // Spacing between rows
+                        ),
+                        itemCount: value.movies.length,
+                        scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: InkWell(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //       context,
-                                  //       MaterialPageRoute(
-                                  //           builder: (context) => MyHerp(
-                                  //                 modelData: value[index],
-                                  //               )));
+                                  context.push(MyHerp.routePath,
+                                      extra: value.movies[index]);
                                 },
-                                child: Container(
-                                  height: 300,
-                                  width: 200,
-                                  color: Colors.grey.shade800,
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        width: 300,
-                                        height: 200,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.network(
-                                            '$imagePath${value[index].posterPath}',
-                                            fit: BoxFit.cover,
+                                child: SingleChildScrollView(
+                                  child: Container(
+                                    height: 300,
+                                    width: 200,
+                                    color: const Color.fromARGB(255, 12, 1, 31),
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 200,
+                                          height: 200,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.network(
+                                              '$imagePath${value.movies[index].posterPath}',
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 250,
-                                        child: Center(
-                                          child: Text(
-                                            value[index].title,
-                                            style: const TextStyle(
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 250,
+                                          child: Center(
+                                            child: Text(
+                                              value.movies[index].title,
+                                              style: const TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 19),
+                                                fontSize: 19,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -188,8 +210,12 @@ class MyMainHome extends ConsumerWidget {
               ],
             ),
           ),
-        AsyncError(:final error) => Text('Error: $error'),
-        _ => const CircularProgressIndicator(),
+        AsyncError() => const TryAgainButtonWidget(),
+        _ => const Center(
+            child: CircularProgressIndicator(),
+          )
+        // AsyncError(:final error) => Text('Error: $error'),
+        // _ => const CircularProgressIndicator(),
       },
     );
   }

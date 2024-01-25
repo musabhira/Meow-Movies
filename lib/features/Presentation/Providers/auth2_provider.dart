@@ -11,6 +11,7 @@ import 'package:meow_films/features/domain/usecases/logout_use_case.dart';
 import 'package:meow_films/features/domain/usecases/sendemail_usecase.dart';
 import 'package:meow_films/features/domain/usecases/sign_use_case.dart';
 import 'package:meow_films/features/domain/usecases/signin_google_usecase.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth2_provider.g.dart';
@@ -65,6 +66,15 @@ class Authentication extends _$Authentication {
     try {
       await SignInWithGoogleUseCase(repository: repository)(context);
       Future.sync(() => context.go(MyMainHome.routePath));
+    } on BaseException catch (e) {
+      Future.sync(() => SnackBarUtils.showMessage(context, e.message));
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await SendEmailVerificationUseCase(repository: repository);
+      // Future.sync(() => context.go(MyMainHome.path));
     } on BaseException catch (e) {
       Future.sync(() => SnackBarUtils.showMessage(context, e.message));
     }

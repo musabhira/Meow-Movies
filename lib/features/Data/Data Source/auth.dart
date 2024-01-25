@@ -82,12 +82,29 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
       }
     }
   }
+
+  @override
+  Future<void> sendPasswordResetEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
+  }
 }
 
 @riverpod
 FireBaseAuthMethods firebaseAuthMethod(FirebaseAuthMethodRef ref) {
   return FireBaseAuthMethodsImpl(FirebaseAuth.instance);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

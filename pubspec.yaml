@@ -50,6 +50,9 @@ dependencies:
   hooks_riverpod: ^2.4.9
   flutter_hooks: ^0.20.4
   google_sign_in: ^6.2.1
+  youtube_player_flutter: ^8.1.2
+  carousel_slider: ^4.2.1
+  curved_navigation_bar: ^1.0.3
   
 
 dev_dependencies:
