@@ -8,5 +8,8 @@ class ProviderState with _$ProviderState {
   factory ProviderState({
     required List<MovieEntity> movies,
     required List<MovieEntity> trending,
+    required List<MovieEntity> page5,
+    required List<MovieEntity> page6,
+    required List<MovieEntity> page7,
   }) = _ProviderState;
 }

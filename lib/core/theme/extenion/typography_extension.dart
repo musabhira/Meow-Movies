@@ -29,9 +29,10 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
     required Color defaultFontColor,
     required Color linkColor,
     required Color dimFontColor,
+    required Color whiteColor,
   })  : ui = TextStyle(color: defaultFontColor, fontSize: 14, letterSpacing: 0),
         uiSemibold = TextStyle(
-            color: defaultFontColor,
+            color: whiteColor,
             fontWeight: FontWeight.w600,
             fontSize: 14,
             letterSpacing: 0),
@@ -97,12 +98,12 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
             fontSize: 16,
             letterSpacing: 0),
         h600 = TextStyle(
-            color: defaultFontColor,
+            color: whiteColor,
             fontWeight: FontWeight.w600,
             fontSize: 20,
             letterSpacing: 0),
         h700 = TextStyle(
-            color: defaultFontColor,
+            color: whiteColor,
             fontWeight: FontWeight.w600,
             fontSize: 24,
             letterSpacing: 0),

@@ -16,12 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MovieEntity {
+  int get id => throw _privateConstructorUsedError;
+  bool get adult => throw _privateConstructorUsedError;
+  String get backdropPath => throw _privateConstructorUsedError;
   bool get video => throw _privateConstructorUsedError;
   String get originalTitle => throw _privateConstructorUsedError;
   String get overview => throw _privateConstructorUsedError;
   String get posterPath => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   double get voteAverage => throw _privateConstructorUsedError;
+  DateTime get releaseDate => throw _privateConstructorUsedError;
+  int get voteCount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MovieEntityCopyWith<MovieEntity> get copyWith =>
@@ -35,12 +40,17 @@ abstract class $MovieEntityCopyWith<$Res> {
       _$MovieEntityCopyWithImpl<$Res, MovieEntity>;
   @useResult
   $Res call(
-      {bool video,
+      {int id,
+      bool adult,
+      String backdropPath,
+      bool video,
       String originalTitle,
       String overview,
       String posterPath,
       String title,
-      double voteAverage});
+      double voteAverage,
+      DateTime releaseDate,
+      int voteCount});
 }
 
 /// @nodoc
@@ -56,14 +66,31 @@ class _$MovieEntityCopyWithImpl<$Res, $Val extends MovieEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? adult = null,
+    Object? backdropPath = null,
     Object? video = null,
     Object? originalTitle = null,
     Object? overview = null,
     Object? posterPath = null,
     Object? title = null,
     Object? voteAverage = null,
+    Object? releaseDate = null,
+    Object? voteCount = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      adult: null == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as bool,
+      backdropPath: null == backdropPath
+          ? _value.backdropPath
+          : backdropPath // ignore: cast_nullable_to_non_nullable
+              as String,
       video: null == video
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
@@ -88,6 +115,14 @@ class _$MovieEntityCopyWithImpl<$Res, $Val extends MovieEntity>
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
               as double,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      voteCount: null == voteCount
+          ? _value.voteCount
+          : voteCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -101,12 +136,17 @@ abstract class _$$MovieEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool video,
+      {int id,
+      bool adult,
+      String backdropPath,
+      bool video,
       String originalTitle,
       String overview,
       String posterPath,
       String title,
-      double voteAverage});
+      double voteAverage,
+      DateTime releaseDate,
+      int voteCount});
 }
 
 /// @nodoc
@@ -120,14 +160,31 @@ class __$$MovieEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? adult = null,
+    Object? backdropPath = null,
     Object? video = null,
     Object? originalTitle = null,
     Object? overview = null,
     Object? posterPath = null,
     Object? title = null,
     Object? voteAverage = null,
+    Object? releaseDate = null,
+    Object? voteCount = null,
   }) {
     return _then(_$MovieEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      adult: null == adult
+          ? _value.adult
+          : adult // ignore: cast_nullable_to_non_nullable
+              as bool,
+      backdropPath: null == backdropPath
+          ? _value.backdropPath
+          : backdropPath // ignore: cast_nullable_to_non_nullable
+              as String,
       video: null == video
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
@@ -152,6 +209,14 @@ class __$$MovieEntityImplCopyWithImpl<$Res>
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
               as double,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      voteCount: null == voteCount
+          ? _value.voteCount
+          : voteCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -160,13 +225,24 @@ class __$$MovieEntityImplCopyWithImpl<$Res>
 
 class _$MovieEntityImpl implements _MovieEntity {
   const _$MovieEntityImpl(
-      {required this.video,
+      {required this.id,
+      required this.adult,
+      required this.backdropPath,
+      required this.video,
       required this.originalTitle,
       required this.overview,
       required this.posterPath,
       required this.title,
-      required this.voteAverage});
+      required this.voteAverage,
+      required this.releaseDate,
+      required this.voteCount});
 
+  @override
+  final int id;
+  @override
+  final bool adult;
+  @override
+  final String backdropPath;
   @override
   final bool video;
   @override
@@ -179,10 +255,14 @@ class _$MovieEntityImpl implements _MovieEntity {
   final String title;
   @override
   final double voteAverage;
+  @override
+  final DateTime releaseDate;
+  @override
+  final int voteCount;
 
   @override
   String toString() {
-    return 'MovieEntity(video: $video, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, title: $title, voteAverage: $voteAverage)';
+    return 'MovieEntity(id: $id, adult: $adult, backdropPath: $backdropPath, video: $video, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, title: $title, voteAverage: $voteAverage, releaseDate: $releaseDate, voteCount: $voteCount)';
   }
 
   @override
@@ -190,6 +270,10 @@ class _$MovieEntityImpl implements _MovieEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MovieEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.adult, adult) || other.adult == adult) &&
+            (identical(other.backdropPath, backdropPath) ||
+                other.backdropPath == backdropPath) &&
             (identical(other.video, video) || other.video == video) &&
             (identical(other.originalTitle, originalTitle) ||
                 other.originalTitle == originalTitle) &&
@@ -199,12 +283,27 @@ class _$MovieEntityImpl implements _MovieEntity {
                 other.posterPath == posterPath) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.voteAverage, voteAverage) ||
-                other.voteAverage == voteAverage));
+                other.voteAverage == voteAverage) &&
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate) &&
+            (identical(other.voteCount, voteCount) ||
+                other.voteCount == voteCount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, video, originalTitle, overview,
-      posterPath, title, voteAverage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      adult,
+      backdropPath,
+      video,
+      originalTitle,
+      overview,
+      posterPath,
+      title,
+      voteAverage,
+      releaseDate,
+      voteCount);
 
   @JsonKey(ignore: true)
   @override
@@ -215,13 +314,24 @@ class _$MovieEntityImpl implements _MovieEntity {
 
 abstract class _MovieEntity implements MovieEntity {
   const factory _MovieEntity(
-      {required final bool video,
+      {required final int id,
+      required final bool adult,
+      required final String backdropPath,
+      required final bool video,
       required final String originalTitle,
       required final String overview,
       required final String posterPath,
       required final String title,
-      required final double voteAverage}) = _$MovieEntityImpl;
+      required final double voteAverage,
+      required final DateTime releaseDate,
+      required final int voteCount}) = _$MovieEntityImpl;
 
+  @override
+  int get id;
+  @override
+  bool get adult;
+  @override
+  String get backdropPath;
   @override
   bool get video;
   @override
@@ -234,6 +344,10 @@ abstract class _MovieEntity implements MovieEntity {
   String get title;
   @override
   double get voteAverage;
+  @override
+  DateTime get releaseDate;
+  @override
+  int get voteCount;
   @override
   @JsonKey(ignore: true)
   _$$MovieEntityImplCopyWith<_$MovieEntityImpl> get copyWith =>

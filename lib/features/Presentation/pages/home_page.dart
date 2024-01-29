@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meow_films/core/constant/constant.dart';
+import 'package:meow_films/core/theme/app_theme.dart';
 
 import 'package:meow_films/features/Presentation/Providers/auth2_provider.dart';
 import 'package:meow_films/features/Presentation/Providers/movie_api_provider.dart';
+import 'package:meow_films/features/Presentation/Widgets/CategoryTitleWidget.dart';
+import 'package:meow_films/features/Presentation/Widgets/custom_watch.dart';
+import 'package:meow_films/features/Presentation/Widgets/tiltle_function.dart';
 import 'package:meow_films/features/Presentation/Widgets/try_again_buttom_widget.dart';
-import 'package:meow_films/features/Presentation/pages/inHome_page.dart';
+import 'package:meow_films/features/Presentation/Widgets/watch_Movies.dart';
 
 import 'package:meow_films/features/Presentation/pages/login_page.dart';
 
@@ -26,24 +29,26 @@ class MyMainHome extends ConsumerWidget {
   // 'https://image.tmdb.org/t/p/original';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = AppTheme.of(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 158, 157, 157),
+      backgroundColor: AppTheme.of(context).colors.textSubtle,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           Constant.meowFilms,
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 12, 1, 31),
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
+          style: TextStyle(
+            color: AppTheme.of(context).colors.textInverse,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        centerTitle: true,
+        elevation: 10,
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, color: Colors.white),
+            icon: Icon(
+              Icons.logout,
+              color: AppTheme.of(context).colors.textInverse,
+            ),
             onPressed: () {
               if (FirebaseAuth.instance.currentUser != null) {
                 ref.read(authenticationProvider(context).notifier).signOut();
@@ -52,171 +57,57 @@ class MyMainHome extends ConsumerWidget {
             },
           ),
         ],
-      ),
-      body: switch (ref.watch(movieProvider)) {
-        AsyncData(:final value) => SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(1),
-                    child: Container(
-                      width: double.infinity,
-                      height: 400,
-                      color: const Color.fromARGB(255, 199, 203, 204),
-                      child: CarouselSlider.builder(
-                        itemCount: value.trending.length,
-                        options: CarouselOptions(
-                          // height: 400,
-                          // autoPlay: true,
-                          // autoPlayInterval: Duration(seconds: 4),
-                          // autoPlayAnimationDuration:
-                          //     Duration(milliseconds: 800),
-                          // enableInfiniteScroll: true,
-                          height: 500,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 0.7,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 4),
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 2000),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enlargeCenterPage: true,
-                          enlargeFactor: 0.3,
-                          // onPageChanged: callbackFunction,
-                          scrollDirection: Axis.horizontal,
-                        ),
-                        itemBuilder: (context, index, realIndex) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: InkWell(
-                                onTap: () {
-                                  context.push(MyHerp.routePath,
-                                      extra: value.trending[index]);
-                                },
-                                child: Container(
-                                  height: 100,
-                                  color: const Color.fromARGB(255, 12, 1, 31),
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: Image.network(
-                                          '$imagePath${value.trending[index].posterPath}',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 150,
-                                        child: Center(
-                                          child: Text(
-                                            value.trending[index].title,
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      width: double.infinity,
-                      height: 700,
-                      color: const Color.fromARGB(255, 199, 203, 204),
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4, // Number of columns
-                          crossAxisSpacing: 0.0, // Spacing between columns
-                          mainAxisSpacing: 0.0, // Spacing between rows
-                        ),
-                        itemCount: value.movies.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                onTap: () {
-                                  context.push(MyHerp.routePath,
-                                      extra: value.movies[index]);
-                                },
-                                child: SingleChildScrollView(
-                                  child: Container(
-                                    height: 300,
-                                    width: 200,
-                                    color: const Color.fromARGB(255, 12, 1, 31),
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          width: 200,
-                                          height: 200,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.network(
-                                              '$imagePath${value.movies[index].posterPath}',
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 250,
-                                          child: Center(
-                                            child: Text(
-                                              value.movies[index].title,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 19,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                )
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                theme.colors.gradient1,
+                theme.colors.gradient2,
               ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
-        AsyncError() => const TryAgainButtonWidget(),
-        _ => const Center(
-            child: CircularProgressIndicator(),
-          )
-        // AsyncError(:final error) => Text('Error: $error'),
-        // _ => const CircularProgressIndicator(),
-      },
+        ),
+      ),
+      body: ref.watch(movieProvider).isRefreshing
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : switch (ref.watch(movieProvider)) {
+              AsyncData(:final value) => SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CategoryTitleWidget(value: value.trending),
+                      title(Constant.currentMovies, context),
+                      CustomWatch(
+                        value: value.page5,
+                      ),
+                      title(Constant.beautifulMovies, context),
+                      CustomWatch(
+                        value: value.page6,
+                      ),
+                      title(Constant.amazingMovies, context),
+                      CustomWatch(
+                        value: value.page7,
+                      ),
+                      WatchMovies(value: value.movies),
+                    ],
+                  ),
+                ),
+              AsyncError(:final error) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(error.toString()),
+                    const TryAgainButtonWidget(),
+                  ],
+                ),
+              _ => const Center(
+                  child: CircularProgressIndicator(),
+                )
+              // AsyncError(:final error) => Text('Error: $error'),
+              // _ => const CircularProgressIndicator(),
+            },
     );
   }
 }

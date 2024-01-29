@@ -25,4 +25,9 @@ class Constant {
   static const logingError = 'Enter Required Field';
   static const meowFilms = 'Meow FIlms';
   static const googleButton = 'GOOGLE';
+  static const tvSeries = 'TV series';
+  static const latestMovies = 'Latest Movies';
+  static const currentMovies = 'Current Movies';
+  static const beautifulMovies = 'Beautiful Movies ';
+  static const amazingMovies = ' Amazing Movies';
 }

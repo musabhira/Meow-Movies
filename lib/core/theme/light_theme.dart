@@ -12,20 +12,23 @@ final _lightTheme = ThemeData(
   brightness: Brightness.light,
   extensions: [
     AppColorExtension(
-      primary: Colors.yellow,
-      secondary: AppColorPalette.yellow100,
-      text: AppColorPalette.grey900,
-      textInverse: Colors.white,
-      textSubtle: AppColorPalette.grey700,
-      textSubtlest: AppColorPalette.grey500,
-      backgroundDanger: Colors.blue,
-    ),
+        primary: Colors.yellow,
+        secondary: AppColorPalette.yellow100,
+        text: AppColorPalette.grey900,
+        textInverse: Colors.white,
+        textSubtle: AppColorPalette.grey700,
+        textSubtlest: AppColorPalette.grey500,
+        backgroundDanger: Colors.blue,
+        myColor: Colors.black,
+        appBar: AppColorPalette.darkblue,
+        gradient1: Colors.blue,
+        gradient2: Colors.purple),
     AppSpaceExtension.fromBaseSpace(8),
     AppTypographyExtension.fromColors(
-      defaultFontColor: AppColorPalette.grey900,
-      linkColor: Colors.blue,
-      dimFontColor: AppColorPalette.grey700,
-    )
+        defaultFontColor: AppColorPalette.grey900,
+        linkColor: Colors.blue,
+        dimFontColor: AppColorPalette.grey700,
+        whiteColor: Colors.white)
   ],
 );
 

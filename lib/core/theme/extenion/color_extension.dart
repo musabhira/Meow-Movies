@@ -8,6 +8,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color textSubtle;
   final Color textSubtlest;
   final Color backgroundDanger;
+  final Color myColor;
+  final Color appBar;
+  final Color gradient1;
+  final Color gradient2;
 
   AppColorExtension({
     required this.primary,
@@ -17,6 +21,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.textSubtle,
     required this.textSubtlest,
     required this.backgroundDanger,
+    required this.myColor,
+    required this.appBar,
+    required this.gradient1,
+    required this.gradient2,
   });
 
   @override
@@ -28,6 +36,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? textSubtle,
     Color? textSubtlest,
     Color? backgroundDanger,
+    Color? myColor,
+    Color? appBar,
+    Color? gradient1,
+    Color? gradient2,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -37,6 +49,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       textSubtle: textSubtle ?? this.textSubtle,
       textSubtlest: textSubtlest ?? this.textSubtlest,
       backgroundDanger: backgroundDanger ?? this.backgroundDanger,
+      myColor: myColor ?? this.myColor,
+      appBar: appBar ?? this.appBar,
+      gradient1: gradient1 ?? this.gradient1,
+      gradient2: gradient2 ?? this.gradient2,
     );
   }
 
@@ -56,6 +72,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       textSubtlest: Color.lerp(textSubtlest, other.textSubtlest, t)!,
       backgroundDanger:
           Color.lerp(backgroundDanger, other.backgroundDanger, t)!,
+      myColor: Color.lerp(myColor, other.myColor, t)!,
+      appBar: Color.lerp(appBar, other.appBar, t)!,
+      gradient1: Color.lerp(gradient1, other.gradient1, t)!,
+      gradient2: Color.lerp(gradient2, other.gradient2, t)!,
     );
   }
 }

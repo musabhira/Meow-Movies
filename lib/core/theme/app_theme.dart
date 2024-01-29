@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:meow_films/core/theme/extenion/color_extension.dart';
 import 'package:meow_films/core/theme/extenion/space_extension.dart';
 import 'package:meow_films/core/theme/extenion/typography_extension.dart';

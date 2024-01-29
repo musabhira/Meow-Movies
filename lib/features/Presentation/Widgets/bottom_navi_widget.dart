@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meow_films/core/theme/app_theme.dart';
 import 'package:meow_films/features/Presentation/Providers/movie_api_provider.dart';
 import 'package:meow_films/features/Presentation/pages/home_page.dart';
 import 'package:meow_films/features/Presentation/pages/inHome_page.dart';
+import 'package:meow_films/features/Presentation/pages/search_page.dart';
 import 'package:meow_films/features/domain/entites/movie_entity.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -30,14 +32,15 @@ class _bottooomState extends State<bottooomPage> {
         },
         children: const [
           MyMainHome(),
-          Scaffold(),
+          MovieSearchPage(),
+          // MovieSearchPage(),
           Scaffold(),
           Scaffold(),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
-        color: const Color.fromARGB(255, 12, 1, 31),
+        color: AppTheme.of(context).colors.gradient2,
         height: 50,
         animationDuration: const Duration(milliseconds: 200),
         index: selectedIndex,
