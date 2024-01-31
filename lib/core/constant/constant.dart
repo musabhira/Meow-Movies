@@ -30,4 +30,8 @@ class Constant {
   static const currentMovies = 'Current Movies';
   static const beautifulMovies = 'Beautiful Movies ';
   static const amazingMovies = ' Amazing Movies';
+  static const enterPhoneNumber = 'Enter Phone Number';
+  static const enterOtpNumber = 'Enter Otp Number';
+  static const sendOtp = 'SEND OTP';
+  static const conformOtp = 'CONFORM OTP';
 }

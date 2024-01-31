@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:meow_films/features/Presentation/pages/home_page.dart';
-import 'package:meow_films/features/Presentation/pages/login_page.dart';
+import 'package:meow_films/features/authentication/presentation/page/login_page.dart';
+import 'package:meow_films/features/home_page/Presentation/pages/home_page.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({Key? key}) : super(key: key);
