@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
-
-import 'package:meow_films/features/authentication/Data/Data%20Source/auth.dart';
+import 'package:flutter/material.dart';
 import 'package:meow_films/features/authentication/Data/Data%20Source/firebase_auth.dart';
-import 'package:meow_films/features/authentication/data/data%20source/auth';
+
 import 'package:meow_films/features/authentication/data/data%20source/firebase_auth_impl.dart';
 import 'package:meow_films/features/authentication/domain/Repository/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -52,6 +50,11 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> verifyOtp(String verificationId, String otp) async {
     await dataSource.verifyOtp(verificationId, otp);
+  }
+
+  @override
+  Future<void> continueWithGoogle() async {
+    await dataSource.continueWithGoogle();
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meow_films/core/constant/constant.dart';
@@ -95,11 +95,14 @@ class MyMainHome extends ConsumerWidget {
                     ],
                   ),
                 ),
-              AsyncError(:final error) => Column(
+              AsyncError(:final error, :final stackTrace) => Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(error.toString()),
-                    const TryAgainButtonWidget(),
+                    Text(stackTrace.toString()),
+                    const TryAgainButtonWidget(
+                      error: '',
+                    ),
                   ],
                 ),
               _ => const Center(

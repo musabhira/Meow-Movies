@@ -15,4 +15,5 @@ class ApiUtils {
   static const moviesUrl = '/discover/movie';
   static const getMoviesUrl =
       'https://api.themoviedb.org/3/discover/movie?page=1&include_video=true';
+  static const trailerLink = "https://api.themoviedb.org/3/movie";
 }

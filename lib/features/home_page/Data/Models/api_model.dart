@@ -18,7 +18,7 @@ class ApiModel with _$ApiModel {
 class Result with _$Result {
   const factory Result({
     @JsonKey(name: "adult") required bool adult,
-    @JsonKey(name: "backdrop_path") required String backdropPath,
+    @JsonKey(name: "backdrop_path") String? backdropPath,
     @JsonKey(name: "genre_ids") required List<int> genreIds,
     @JsonKey(name: "id") required int id,
     @JsonKey(name: "original_language") required String originalLanguage,

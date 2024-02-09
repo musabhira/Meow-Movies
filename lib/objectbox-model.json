@@ -1,0 +1,87 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2937543615222439445",
+      "lastPropertyId": "12:3441822648457191011",
+      "name": "ObjectBoxMovieEntityUser",
+      "properties": [
+        {
+          "id": "1:1635107016179635576",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8383874459209811592",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "3:4856870594674273658",
+          "name": "movieid",
+          "type": 6
+        },
+        {
+          "id": "4:7630438881886927259",
+          "name": "overview",
+          "type": 9
+        },
+        {
+          "id": "5:8471731502872114572",
+          "name": "backdropPath",
+          "type": 9
+        },
+        {
+          "id": "6:7077584986888720105",
+          "name": "posterPath",
+          "type": 9
+        },
+        {
+          "id": "7:2349905747631419502",
+          "name": "releaseDate",
+          "type": 10
+        },
+        {
+          "id": "8:2037273268497097057",
+          "name": "voteAverage",
+          "type": 8
+        },
+        {
+          "id": "9:8643550530253158509",
+          "name": "originalTitle",
+          "type": 9
+        },
+        {
+          "id": "10:313257834777173442",
+          "name": "voteCount",
+          "type": 6
+        },
+        {
+          "id": "11:2273231160886233642",
+          "name": "video",
+          "type": 1
+        },
+        {
+          "id": "12:3441822648457191011",
+          "name": "adult",
+          "type": 1
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:2937543615222439445",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

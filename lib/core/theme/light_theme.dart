@@ -25,7 +25,7 @@ final _lightTheme = ThemeData(
         gradient2: Colors.purple),
     AppSpaceExtension.fromBaseSpace(8),
     AppTypographyExtension.fromColors(
-        defaultFontColor: AppColorPalette.grey900,
+        defaultFontColor: const Color.fromARGB(255, 24, 23, 23),
         linkColor: Colors.blue,
         dimFontColor: AppColorPalette.grey700,
         whiteColor: Colors.white)

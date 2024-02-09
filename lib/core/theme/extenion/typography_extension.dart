@@ -88,12 +88,12 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
           letterSpacing: 0,
         ),
         h400 = TextStyle(
-            color: defaultFontColor,
+            color: whiteColor,
             fontWeight: FontWeight.w600,
             fontSize: 14,
             letterSpacing: 0),
         h500 = TextStyle(
-            color: defaultFontColor,
+            color: whiteColor,
             fontWeight: FontWeight.w600,
             fontSize: 16,
             letterSpacing: 0),

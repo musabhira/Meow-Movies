@@ -66,23 +66,13 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-      if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken,
-          idToken: googleAuth?.idToken,
-        );
-        await _auth.signInWithCredential(credential);
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw AuthenticationFailedException('Wrong email address');
-      } else if (e.code == 'wrong-password') {
-        throw AuthenticationFailedException('Wrong password');
-      } else if (e.code == 'user-disabled') {
-        throw AuthenticationFailedException('User is disabled. Cannot login');
-      } else {
-        throw AuthenticationFailedException('Cannot login. Please try again');
-      }
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } on Exception {
+      throw AuthenticationFailedException('Cannot login, please try again');
     }
   }
 
@@ -97,19 +87,23 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
       final verificationIdCompleter = Completer<String>();
       final resendTokenCompleter = Completer<int?>();
       await _auth.verifyPhoneNumber(
+          phoneNumber: mobileNUmber,
           verificationCompleted: (PhoneAuthCredential credential) async {
-        // log('completed');
-        await _auth.signInWithCredential(credential);
-      }, verificationFailed: (FirebaseAuthException e) {
-        if (e.code == 'invalid-phone-number') {
-          // log('invalid phone number');
-        }
-      }, codeSent: (String? verificationId, int? resendToken) async {
-        verificationIdCompleter.complete(verificationId);
-        resendTokenCompleter.complete(resendToken);
-      }, codeAutoRetrievalTimeout: (String verificationId) async {
-        // log('timeout');
-      });
+            // log('completed');
+            await _auth.signInWithCredential(credential);
+          },
+          verificationFailed: (FirebaseAuthException e) {
+            if (e.code == 'invalid-phone-number') {
+              // log('invalid phone number');
+            }
+          },
+          codeSent: (String? verificationId, int? resendToken) async {
+            verificationIdCompleter.complete(verificationId);
+            resendTokenCompleter.complete(resendToken);
+          },
+          codeAutoRetrievalTimeout: (String verificationId) async {
+            // log('timeout');
+          });
       final verificationId = await verificationIdCompleter.future;
       final newResendToken = await resendTokenCompleter.future;
       return (verificationId, newResendToken);
@@ -123,6 +117,22 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: otp);
     await _auth.signInWithCredential(credential);
+  }
+
+  @override
+  Future<void> continueWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } on Exception {
+      throw AuthenticationFailedException('Cannot login, please try again');
+    }
   }
 }
 

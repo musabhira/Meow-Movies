@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
@@ -48,6 +50,14 @@ class CategoryTitleWidget extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
             ),
             itemBuilder: (context, index, realIndex) {
+              final postPathFile = File(value[index].posterPath);
+
+              late final ImageProvider image;
+              if (postPathFile.existsSync()) {
+                image = FileImage(postPathFile);
+              } else {
+                image = NetworkImage(imagePath + value[index].posterPath);
+              }
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(

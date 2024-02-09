@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meow_films/core/theme/app_theme.dart';
-
 import 'package:meow_films/features/home_page/Presentation/Providers/movie_api_provider.dart';
 import 'package:meow_films/features/home_page/Presentation/Widgets/appbar_widget.dart';
+import 'package:meow_films/features/home_page/Presentation/Widgets/comment_bottom_sheet.dart';
+import 'package:meow_films/features/home_page/Presentation/Widgets/review_section_widget.dart';
+import 'package:meow_films/features/home_page/Presentation/Widgets/vedio_widget.dart';
 import 'package:meow_films/features/home_page/Presentation/Widgets/youtube_widget.dart';
 import 'package:meow_films/features/home_page/domain/entites/movie_entity.dart';
 
@@ -12,7 +13,12 @@ const imagePath = 'https://image.tmdb.org/t/p/original';
 
 class MyHerp extends ConsumerWidget {
   final MovieEntity modelData1;
-  const MyHerp({super.key, required this.modelData1});
+  // final List<ReviewEntity> modelData2;
+
+  const MyHerp({
+    super.key,
+    required this.modelData1,
+  });
   static const routePath = '/myHerp';
 
   @override
@@ -66,7 +72,7 @@ class MyHerp extends ConsumerWidget {
                             style: AppTheme.of(context).typography.h700),
                         Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 350,
                               child: Text(
                                 modelData1.originalTitle,
@@ -82,10 +88,28 @@ class MyHerp extends ConsumerWidget {
                               style:
                                   AppTheme.of(context).typography.uiSemibold),
                         ),
+                        IconButton(
+                          icon: const Icon(Icons.comment),
+                          onPressed: () {
+                            _showCommentBottomSheet(context, modelData1);
+                            // CommentBottomSheetWidget(modelData1: modelData1);
+                          },
+                          color: AppTheme.of(context).colors.textInverse,
+                        ),
                         SizedBox(
                           width: 250,
-                          height: 300,
+                          // height: 00,
                           child: YoutubePlayerWidget(modelData1: modelData1),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Reviewsectionwidget(movieEntity: modelData1),
+                        ),
+                        const SizedBox(
+                          height: 130,
                         ),
                       ],
                     ),
@@ -98,4 +122,18 @@ class MyHerp extends ConsumerWidget {
       ),
     );
   }
+}
+
+void _showCommentBottomSheet(
+  BuildContext context,
+  MovieEntity movieEntity,
+) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return CommentBottomSheetWidget(
+        modelData1: movieEntity,
+      );
+    },
+  );
 }

@@ -12,5 +12,6 @@ class ProviderState with _$ProviderState {
     required List<MovieEntity> page5,
     required List<MovieEntity> page6,
     required List<MovieEntity> page7,
+    // required List<MovieEntity> search,
   }) = _ProviderState;
 }

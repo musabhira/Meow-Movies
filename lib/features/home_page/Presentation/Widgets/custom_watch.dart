@@ -18,40 +18,42 @@ class CustomWatch extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = AppTheme.of(context);
 
-    return Container(
-      height: theme.spaces.space_100 * 29.5,
-      color: AppTheme.of(context).colors.textSubtlest,
-      child: Row(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: value.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () =>
-                        context.push(MyHerp.routePath, extra: value[index]),
-                    child: Column(
-                      children: [
-                        Image.network(
-                          '$imagePath${value[index].posterPath}',
-                          fit: BoxFit.fill,
-                          height: 200, // Adjust the height as needed
-                        ),
-                        Text(
-                          value[index].title,
-                          style: theme.typography.pDefault,
-                        )
-                      ],
+    return SingleChildScrollView(
+      child: Container(
+        height: theme.spaces.space_100 * 31.5,
+        color: AppTheme.of(context).colors.textSubtlest,
+        child: Row(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () =>
+                          context.push(MyHerp.routePath, extra: value[index]),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            '$imagePath${value[index].posterPath}',
+                            fit: BoxFit.fill,
+                            height: 200, // Adjust the height as needed
+                          ),
+                          Text(
+                            value[index].title,
+                            style: theme.typography.pDefault,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -20,7 +20,7 @@ class GoogleButton extends HookConsumerWidget {
       height: 35,
       child: ElevatedButton(
         onPressed: () {
-          ref.read(authenticationProvider.notifier).signinWithGoogle(context);
+          ref.read(authenticationProvider.notifier).continueWithGoogle(context);
         },
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color.fromARGB(255, 255, 255, 255),

@@ -2,9 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:meow_films/core/Exception/base_exception.dart';
 import 'package:meow_films/core/utils/snakbar_Utils.dart';
-
 import 'package:meow_films/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:meow_films/features/authentication/domain/Repository/auth_repository.dart';
+import 'package:meow_films/features/authentication/domain/usecases/continueWithGoogle_usecase.dart';
 import 'package:meow_films/features/authentication/domain/usecases/login_use_case.dart';
 import 'package:meow_films/features/authentication/domain/usecases/login_with_phone.dart';
 import 'package:meow_films/features/authentication/domain/usecases/logout_use_case.dart';
@@ -15,6 +15,7 @@ import 'package:meow_films/features/authentication/domain/usecases/verify_otp_us
 import 'package:meow_films/features/authentication/presentation/page/login_page.dart';
 import 'package:meow_films/features/authentication/presentation/page/otp_verification.dart';
 import 'package:meow_films/features/authentication/presentation/providers/auth_state.dart';
+import 'package:meow_films/features/home_page/Presentation/Widgets/bottom_navi_widget.dart';
 
 import 'package:meow_films/features/home_page/Presentation/pages/home_page.dart';
 
@@ -56,7 +57,7 @@ class Authentication extends _$Authentication {
       String email, String password, BuildContext context) async {
     try {
       await SigninUsecase(repository: repository)(email, password);
-      Future.sync(() => context.go(MyMainHome.routePath));
+      Future.sync(() => context.go(bottooomPage.routePath));
     } on BaseException catch (e) {
       Future.sync(() => SnackBarUtils.showMessage(context, e.message));
     }
@@ -108,6 +109,15 @@ class Authentication extends _$Authentication {
           verificationId: verificationData.$1,
           resendToken: verificationData.$2);
       Future.sync(() => context.push(OtpVerification.routePath));
+    } on BaseException catch (e) {
+      Future.sync(() => SnackBarUtils.showMessage(context, e.message));
+    }
+  }
+
+  Future<void> continueWithGoogle(BuildContext context) async {
+    try {
+      await ContinueWithGoogleUseCase(repository: repository)();
+      Future.sync(() => context.go(bottooomPage.routePath));
     } on BaseException catch (e) {
       Future.sync(() => SnackBarUtils.showMessage(context, e.message));
     }
